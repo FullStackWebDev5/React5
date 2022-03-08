@@ -1,0 +1,8 @@
+.post{
+  margin-top: 10px;
+}
+
+.post .post-buttons{
+  margin: 5px 10px 0 0;
+  background-color: #08244c;
+}
