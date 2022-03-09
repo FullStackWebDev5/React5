@@ -1,32 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { Card, Button, Spinner } from "react-bootstrap";
+import "./Posts/Posts.css";
 import axios from "axios";
+import { useParams } from 'react-router-dom'
 
-function Posts() {
-  const [posts, setPosts] = useState([]);
+function Post() {
+  const [post, setPost] = useState({});
 
-  useEffect(() => {
-    // axios
-    //   .get("https://jsonplaceholder.typicode.com/posts")
-    //   .then((res) => setPosts(res.data))
-    //   .catch((err) => console.log(err))
-    
-    const fetchPosts = async () => {
+  const { id } = useParams()
+
+  useEffect(() => {    
+    const fetchPost = async () => {
       try{
-        const res = await axios.get("https://jsonplaceholder.typicode.com/posts")
-        setPosts(res.data)
+        const res = await axios.get(`https://jsonplaceholder.typicode.com/posts/${id}`)
+        setPost(res.data)
       } catch (err) {
         console.log(err)
       }
     }
-    fetchPosts()
-  }, []);
+    fetchPost()
+  }, [id]);
 
   return (
     <>
-      <h1>Posts</h1>
-      {posts.length ? (
-        posts.map((post) => (
+      <h1>Post No. {post.id}</h1>
+      {Object.keys(post) ? (
           <Card
             className="post"
             border="primary"
@@ -53,7 +51,6 @@ function Posts() {
               </small>
             </Card.Footer>
           </Card>
-        ))
       ) : (
         <Spinner animation="border" />
       )}
@@ -61,4 +58,4 @@ function Posts() {
   );
 }
 
-export default Posts;
+export default Post;

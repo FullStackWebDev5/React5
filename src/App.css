@@ -37,6 +37,16 @@
   }
 }
 
-.container{
+.app-container{
   margin-top: 20px;
+}
+
+.router-link{
+  text-decoration: none;
+  color: inherit;
+}
+
+.router-link:hover{
+  text-decoration: none;
+  color: inherit;
 }
