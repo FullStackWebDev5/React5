@@ -24,7 +24,7 @@ function Post() {
   return (
     <>
       <h1>Post No. {post.id}</h1>
-      {Object.keys(post) ? (
+      {Object.keys(post).length ? (
           <Card
             className="post"
             border="primary"

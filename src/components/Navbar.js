@@ -5,7 +5,7 @@ import {
   Nav,
   NavDropdown,
 } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function Navbar() {
   return (
@@ -17,10 +17,20 @@ function Navbar() {
         <BootstrapNavbar.Toggle aria-controls="responsive-navbar-nav" />
         <BootstrapNavbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link>
-              <Link className='router-link' to="/">Home</Link>
+            <Nav.Link
+              as={NavLink}
+              to="/"
+              className={({ isActive }) => (isActive ? "active" : "")}
+            >
+              Home
             </Nav.Link>
-            <Nav.Link href="/posts"><Link className='router-link' to="/posts">Posts</Link></Nav.Link>
+            <Nav.Link
+              as={NavLink}
+              to="/posts"
+              className={({ isActive }) => (isActive ? "active" : "")}
+            >
+              Posts
+            </Nav.Link>
             <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">

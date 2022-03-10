@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Card, Button, Spinner } from "react-bootstrap";
 import axios from "axios";
+import { Link } from 'react-router-dom'
 
 function Posts() {
   const [posts, setPosts] = useState([]);
@@ -38,7 +39,7 @@ function Posts() {
               <small className="text-muted">User {post.userId}</small>
             </Card.Header>
             <Card.Body>
-              <Card.Title>{post.title}</Card.Title>
+              <Card.Title><Link className="router-link" to={`/posts/${post.id}`}>{post.title}</Link></Card.Title>
               <Card.Text>{post.body}</Card.Text>
               <Button variant="primary" className="post-buttons">
                 Like
