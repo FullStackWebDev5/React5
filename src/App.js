@@ -5,6 +5,9 @@ import Navbar from "./components/Navbar"
 import LandingPage from "./components/LandingPage"
 import Posts from "./components/Posts/Posts";
 import Post from './components/Post';
+import About from './components/About';
+import Contact from './components/Contact';
+import HOC from './components/HOC';
 import Page404 from './components/Page404';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -16,6 +19,8 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/posts" element={<Posts />} />
+          <Route path="/about" element={<HOC component={About} />} />
+          <Route path="/contact" element={<HOC component={Contact} />} />
           <Route path="/posts/:id" element={<Post />} />
           <Route path='*' element={<Page404 />} />
         </Routes>
