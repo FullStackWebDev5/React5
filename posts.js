@@ -1,61 +1,65 @@
 const redux = require('redux')
-const { createStore } = redux
+const reduxLogger = require('redux-logger')
+
+const { createStore, combineReducers, applyMiddleware } = redux
+const { createLogger } = reduxLogger
 
 /**************************************** */
 const ADD_POST = 'ADD_POST'
+const INCREMENT_FOLLOWER_COUNT = 'INCREMENT_FOLLOWER_COUNT'
 
-const addPost = () => {
-  return { type: ADD_POST }
-}
+const addPost = (postName) => {
+  return { type: ADD_POST, payload: postName };
+};
+
+const incrementFollowerCount = () => {
+  return { type: INCREMENT_FOLLOWER_COUNT };
+};
 
 /**************************************** */
-const initialState = {
-  posts: []
+const postInitialState = {
+  posts: [],
 }
 
-const reducer = (state = initialState, action) => {
+const postReducer = (state = postInitialState, action) => {
   switch(action.type){
     case ADD_POST: 
       return {
         ...state,
-        posts: [...state.posts, 'New Post']
+        posts: [...state.posts, action.payload]
       }
 
     default: return state
   }
 }
 
+const followerInitialState = {
+  followers: 0,
+}
+
+const followerReducer = (state = followerInitialState, action) => {
+  switch(action.type){
+    case INCREMENT_FOLLOWER_COUNT:
+      return {
+        ...state,
+        followers: state.followers + 1
+      }
+
+    default: return state
+  }
+}
+
+const rootReducer = combineReducers({
+  post: postReducer,
+  follower: followerReducer
+}) 
+
 /**************************************** */
 
 // Store
-const store = createStore(reducer)
-const unsubscribe = store.subscribe(() => console.log('Subscribe'))
-console.log(store.getState())
-store.dispatch(addPost())
-console.log(store.getState())
-store.dispatch(addPost())
-console.log(store.getState())
+const store = createStore(rootReducer, applyMiddleware(createLogger()))
+const unsubscribe = store.subscribe(() => {})
+store.dispatch(addPost('Mountains vs Beaches'))
+store.dispatch(incrementFollowerCount())
+store.dispatch(addPost('Travel Diaries'))
 unsubscribe()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Reducer
-// 1. Initial State
-// 2. Actions and corresponding updates 

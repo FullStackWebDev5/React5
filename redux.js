@@ -9,7 +9,7 @@ const DECREMENT_COUNTER = 'DECREMENT_COUNTER'
 
 // Action
 // {
-//   type: INCREMENT_COUNTER
+//   type: INCREMENT_COUNTER,
 // }
 
 // {
