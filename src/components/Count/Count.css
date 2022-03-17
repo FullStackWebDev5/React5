@@ -1,0 +1,11 @@
+.count-button{
+  background-color: rgb(33,37,41);
+  border-radius: 10px;
+  color: white;
+  padding: 5px 10px;
+}
+
+.count-display{
+  font-size: 20em;
+  font-family: 'auto';
+}

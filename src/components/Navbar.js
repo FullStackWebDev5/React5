@@ -44,6 +44,13 @@ function Navbar() {
             >
               Contact Us
             </Nav.Link>
+            <Nav.Link
+              as={NavLink}
+              to="/count"
+              className={({ isActive }) => (isActive ? "active" : "")}
+            >
+              Count
+            </Nav.Link>
           </Nav>
           <Nav>
             <Nav.Link href="#deets">Sign Up</Nav.Link>
