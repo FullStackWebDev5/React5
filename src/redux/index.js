@@ -1,1 +1,1 @@
-export { incrementCounter } from './count/action'
+export { incrementCounter, decrementCounter } from './count/action'

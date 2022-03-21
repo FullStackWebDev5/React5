@@ -3,9 +3,15 @@
   border-radius: 10px;
   color: white;
   padding: 5px 10px;
+  margin: 0 10px;
 }
 
 .count-display{
   font-size: 20em;
   font-family: 'auto';
+}
+
+.count-input{
+  display: block;
+  margin: 30px auto;
 }
