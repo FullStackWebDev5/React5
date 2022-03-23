@@ -1,48 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { Card, Button, Spinner } from "react-bootstrap";
 import "./Posts/Posts.css";
-import axios from "axios";
 import { useParams } from "react-router-dom";
+import { fetchPost } from "../redux";
+import { connect } from "react-redux";
 
-function Post() {
-  const [post, setPost] = useState("");
-
+function Post(props) {
   const { id } = useParams();
 
   useEffect(() => {
-    const fetchPost = async () => {
-      try {
-        const res = await axios.get(
-          `https://jsonplaceholder.typicode.com/posts/${id}`
-        );
-        setPost(res.data);
-      } catch (err) {
-        setPost({});
-        console.log(err);
-      }
-    };
-    fetchPost();
+    props.fetchPost(id);
   }, [id]);
 
   return (
     <>
-      {post ? (
-        Object.keys(post).length ? (
+      {!props.loading ? (
+        !props.error ? (
           <>
-            <h1>Post No. {post.id}</h1>
+            <h1>Post No. {props.post.id}</h1>
             <Card
               className="post"
               border="primary"
               bg="dark"
               text="light"
-              key={post.id}
+              key={props.post.id}
             >
               <Card.Header>
-                <small className="text-muted">User {post.userId}</small>
+                <small className="text-muted">User {props.post.userId}</small>
               </Card.Header>
               <Card.Body>
-                <Card.Title>{post.title}</Card.Title>
-                <Card.Text>{post.body}</Card.Text>
+                <Card.Title>{props.post.title}</Card.Title>
+                <Card.Text>{props.post.body}</Card.Text>
                 <Button variant="primary" className="post-buttons">
                   Like
                 </Button>
@@ -58,7 +46,7 @@ function Post() {
             </Card>
           </>
         ) : (
-          <h1>This post does not exist</h1>
+          <h1>{props.error}</h1>
         )
       ) : (
         <Spinner animation="border" />
@@ -67,4 +55,18 @@ function Post() {
   );
 }
 
-export default Post;
+const mapStateToProps = (state) => {
+  return {
+    post: state.post.post,
+    loading: state.post.loading,
+    error: state.post.error,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchPost: (id) => dispatch(fetchPost(id)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Post);
