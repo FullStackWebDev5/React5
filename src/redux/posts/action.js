@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 export const FETCH_POSTS_REQUESTED = 'FETCH_POSTS_REQUESTED'
 export const FETCH_POSTS_SUCCESS = 'FETCH_POSTS_SUCCESS'
 export const FETCH_POSTS_FAILURE = 'FETCH_POSTS_FAILURE'
@@ -23,8 +25,14 @@ export const fetchPostsFailure = (error) => {
 }
 
 export const fetchPosts = () => {
-  return (dispatch) => {
-    dispatch(fetchPostsRequested())
+  return async (dispatch) => {
+    try{
+      dispatch(fetchPostsRequested())
+      let res = await axios.get("https://jsonplaceholder.typicode.com/posts")
+      dispatch(fetchPostsSuccess(res.data))
+    } catch (error) {
+      dispatch(fetchPostsFailure(error.message))
+    }
   }
 }
 
