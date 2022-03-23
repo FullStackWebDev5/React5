@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Card, Button, Spinner } from "react-bootstrap";
 import "./Posts/Posts.css";
 import { useParams } from "react-router-dom";
@@ -12,7 +12,7 @@ function Post() {
 
   useEffect(() => {
     dispatch(fetchPost(id));
-  }, [id]);
+  }, [id, dispatch]);
 
   return (
     <>
